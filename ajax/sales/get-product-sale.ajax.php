@@ -14,7 +14,7 @@ if (isset($_SESSION['selected_products_buys']) && !empty($_SESSION['selected_pro
     $product_id     = $product_data['product_id'];
     $cantidad       = $product_data['cantidad'];
     $precioUnitario = $product_data['precioUnitario'];
-    $total          = $product_data['total'];
+    $total          = number_format($product_data['total'], 2);
 
     $total_pagar += $total;
 
