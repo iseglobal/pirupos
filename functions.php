@@ -9,3 +9,18 @@ function dbConnect() {
   $database->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
   return $database;
 }
+
+// Genera Caracteres aleatorios
+function generateRandomString($length) {
+  $string        = '';
+  $characters    = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  $numCharacters = strlen($characters);
+
+  for ($i = 0; $i < $length; $i++) {
+    $index    = random_int(0, $numCharacters - 1);
+    $caracter = $characters[$index];
+    $string .= $caracter;
+  }
+
+  return $string;
+}

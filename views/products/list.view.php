@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header">
     <div class="d-block text-end">
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productsAddModal">
+      <button id="btn-new-product" class="btn btn-primary" type="button">
         Agregar producto
       </button>
     </div>
@@ -59,7 +59,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="post" enctype="multipart/form-data">
+        <form id="form-new-products" method="post" enctype="multipart/form-data">
           <div class="mb-3">
             <label class="form-label">Nombre</label>
             <input class="form-control" type="text" value="" name="name" required>

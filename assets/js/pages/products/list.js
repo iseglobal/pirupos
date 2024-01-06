@@ -146,6 +146,60 @@ function deleteProduct(idProduct) {
   });
 }
 
+function newProduct() {
+  const newProductForm = document.getElementById("form-new-products");
+
+  const modalNewProduct = new bootstrap.Modal(
+    document.getElementById("productsAddModal")
+  );
+
+  newProductForm.reset();
+
+  // Cuando el formulario se envía
+  newProductForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    fetch(baseURL + "/ajax/products/new.ajax.php", {
+      method: "POST",
+      body: new FormData(newProductForm),
+    })
+      .then((response) => response.text())
+      .then((data) => {
+        console.log(data);
+        modalNewProduct.hide();
+        loadTable();
+
+        // if (data.success == true) {
+        //   myModal.hide();
+        //   loadTable();
+        //   Swal.fire({
+        //     title: "Correcto",
+        //     text: data.message,
+        //     icon: "success",
+        //   });
+        // } else {
+        //   Swal.fire({
+        //     title: "Error",
+        //     text: "Error",
+        //     icon: "error",
+        //   });
+        // }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        // if (data.success != true) {
+        //   Swal.fire({
+        //     title: "Error",
+        //     text: "Error",
+        //     icon: "error",
+        //   });
+        // }
+      });
+  });
+
+  modalNewProduct.show();
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   loadTable();
 
@@ -161,5 +215,12 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("selector-products")
     .addEventListener("change", function () {
       loadTable();
+    });
+
+  // New products
+  document
+    .getElementById("btn-new-product")
+    .addEventListener("click", function () {
+      newProduct();
     });
 });

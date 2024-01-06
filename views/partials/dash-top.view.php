@@ -32,9 +32,9 @@
           <li class="sidebar-item <?= $theme_path == "list_products" ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= APP_URL ?>/controllers/products/list.php">Lista de productos</a>
           </li>
-          <li class="sidebar-item <?= $theme_path == "add_products" ? 'active' : '' ?>">
+          <!-- <li class="sidebar-item <?= $theme_path == "add_products" ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= APP_URL ?>/controllers/products/add.php">Agregar productos</a>
-          </li>
+          </li> -->
           <li class="sidebar-item <?= $theme_path == "impor_products" ? 'active' : '' ?>">
             <a class="sidebar-link" href="<?= APP_URL ?>/controllers/products/impor.php">Importar productos</a>
           </li>
