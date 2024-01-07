@@ -14,9 +14,9 @@ if (isset($_SESSION['selected_products_buys']) && !empty($_SESSION['selected_pro
     $product_id     = $product_data['product_id'];
     $cantidad       = $product_data['cantidad'];
     $precioUnitario = $product_data['precioUnitario'];
-    $total          = number_format($product_data['total'], 2);
+    $total          = $product_data['total'];
 
-    $total_pagar += $total;
+    $total_pagar += floatval($total);
 
     $consulta = "SELECT * FROM products WHERE id = :product_id";
     $stmt     = $connect->prepare($consulta);
@@ -24,7 +24,12 @@ if (isset($_SESSION['selected_products_buys']) && !empty($_SESSION['selected_pro
     $stmt->execute();
     $product = $stmt->fetch(PDO::FETCH_OBJ);
 
-    $html .= "<tr>";
+    if ($precioUnitario == 0) {
+      $html .= "<tr class='table-danger'> ";
+    } else {
+      $html .= "<tr> ";
+    }
+
     $html .= "<td><img class='' width='50' height='50' src='" . APP_URL . "/uploads/images/$product->image' alt=''></td>";
     $html .= "<td>" . $product->name . "</td>";
     $html .= "<td>
@@ -34,10 +39,10 @@ if (isset($_SESSION['selected_products_buys']) && !empty($_SESSION['selected_pro
                 <input type=\"number\" class=\"form-control\" value='$cantidad' onchange='changeQuantity($product->id, this.value)'>
               </td>";
     $html .= "<td>
-                <span class=\"precioSubTotal\">$total</span>
+                <span class=\"precioSubTotal\">S/ " . number_format($total, 2) . "</span>
               </td>";
-    $html .= "<td>
-                <button class='btn btn-danger' onclick=\"deleteProductSale($product->id)\">
+    $html .= "<td class='text-center'>
+                <button class='btn btn-light-danger' onclick=\"deleteProductSale($product->id)\">
                   <i class='fa fa-trash'></i>
                 </button>
               </td>";
@@ -46,7 +51,7 @@ if (isset($_SESSION['selected_products_buys']) && !empty($_SESSION['selected_pro
 
 
 
-  echo json_encode(["html" => $html, "total_pagar" => number_format($total_pagar,2)]);
+  echo json_encode(["html" => $html, "total_pagar" => number_format($total_pagar, 2)]);
 } else {
   $html = "</tr>";
   $html .= "<td colspan='6' class='text-center'>No se han seleccionado productos.</td>";

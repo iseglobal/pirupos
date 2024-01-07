@@ -10,7 +10,9 @@ if (isset($_SESSION['selected_products_buys'])) {
   foreach ($selected_products as $key => $product) {
     if ($product['product_id'] === $product_id) {
       $selected_products[$key]["cantidad"] = $quantity;
-      $selected_products[$key]["total"] = $quantity * $selected_products[$key]["precioUnitario"];
+      $selected_products[$key]["total"]    = $quantity * $selected_products[$key]["precioUnitario"];
+
+      echo $selected_products[$key]["total"] . "\n";
     }
   }
 

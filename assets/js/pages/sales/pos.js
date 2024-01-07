@@ -47,7 +47,7 @@ function getProductsSale() {
   fetch(baseURL + "/ajax/sales/get-product-sale.ajax.php")
     .then((response) => response.json())
     .then((data) => {
-      // console.log(html);
+      // console.log(data);
       tableSales.innerHTML = data.html;
       loadTable();
 
@@ -108,13 +108,84 @@ function changeQuantity(productId, quantity) {
   })
     .then((response) => response.text())
     .then((html) => {
-      console.log(html);
+      // console.log(html);
       getProductsSale();
       // loadTable();
     })
     .catch((error) => {
       console.error("Error:", error);
     });
+}
+
+function paymentMake() {
+  // console.log("realizar venta");
+  const paymentMakeModal = new bootstrap.Modal(
+    document.getElementById("paymentMakeModal")
+  );
+
+  paymentMakeModal.show();
+}
+
+function calculateReturn(paymentEfective) {
+  fetch(baseURL + "/ajax/sales/calculate-return.ajax.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: "paymentEfective=" + paymentEfective,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // console.log(data);
+      document.getElementById("totalCambio").textContent = data.return;
+      const alertContainer = document.getElementById("alertContainer");
+      if (data.error != "") {
+        alertContainer.style.display = "block";
+        alertContainer.textContent = data.error;
+      } else {
+        alertContainer.style.display = "none";
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+function saveSale() {
+  // console.log("realizar venta");
+  Swal.fire({
+    title: "¿Agregar venta?",
+    text: "Revisa todo antes de realizar una venta.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si, vender!",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fetch(baseURL + "/ajax/products/edit.ajax.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: "deleteProduct=true&id=" + idProduct,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+
+          if (data.success == true) {
+            Swal.fire({
+              title: "Eliminado",
+              text: data.message,
+              icon: "success",
+            });
+            loadTable();
+          }
+        });
+    }
+  });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
