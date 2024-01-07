@@ -117,15 +117,7 @@ function changeQuantity(productId, quantity) {
     });
 }
 
-function paymentMake() {
-  // console.log("realizar venta");
-  const paymentMakeModal = new bootstrap.Modal(
-    document.getElementById("paymentMakeModal")
-  );
-
-  paymentMakeModal.show();
-}
-
+// Calcular vuento
 function calculateReturn(paymentEfective) {
   fetch(baseURL + "/ajax/sales/calculate-return.ajax.php", {
     method: "POST",
@@ -151,6 +143,24 @@ function calculateReturn(paymentEfective) {
     });
 }
 
+// Pagar con efectivo
+function payCash() {
+  const paymentMakeModal = new bootstrap.Modal(
+    document.getElementById("payCash")
+  );
+
+  paymentMakeModal.show();
+}
+
+// Pagar con deposito
+function payDeposit() {
+  const paymentMakeModal = new bootstrap.Modal(
+    document.getElementById("payDeposit")
+  );
+
+  paymentMakeModal.show();
+}
+
 function saveSale() {
   // console.log("realizar venta");
   Swal.fire({
@@ -164,24 +174,33 @@ function saveSale() {
     cancelButtonText: "Cancelar",
   }).then((result) => {
     if (result.isConfirmed) {
-      fetch(baseURL + "/ajax/products/edit.ajax.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: "deleteProduct=true&id=" + idProduct,
-      })
+      fetch(baseURL + "/ajax/sales/save-sale.ajax.php")
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
-
           if (data.success == true) {
             Swal.fire({
-              title: "Eliminado",
+              title: "Exito",
               text: data.message,
+              confirmButtonText: "Aceptar",
               icon: "success",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // console.log(data);
+                window.location.href = data.reload;
+              }
             });
-            loadTable();
+          } else {
+            Swal.fire({
+              title: "Error",
+              text: data.message,
+              icon: "error",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // console.log(data);
+                loadTable();
+                getProductsSale();
+              }
+            });
           }
         });
     }

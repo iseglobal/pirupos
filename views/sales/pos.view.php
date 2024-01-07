@@ -73,12 +73,12 @@
             <table class="table table-sm table-bordered table-striped table-hover  align-middle">
               <thead>
                 <tr>
-                  <th>Img</th>
+                  <th width="50">Img</th>
                   <th>Producto</th>
-                  <th>Precio Unitario</th>
-                  <th>Cantidad</th>
-                  <th>Subtotal</th>
-                  <th class="text-center">
+                  <th width="150">Precio Unitario</th>
+                  <th width="150">Cantidad</th>
+                  <th width="120">Subtotal</th>
+                  <th class="text-center" width="60">
                     <i class="fa fa-trash"></i>
                   </th>
                 </tr>
@@ -98,8 +98,17 @@
           </div>
         </div>
         <div class="card-footer">
-          <div class="d-grid">
-            <button class="btn btn-primary" onclick="paymentMake()">Pagar</button>
+          <div class="row">
+            <div class="col-6">
+              <div class="d-grid">
+                <button class="btn btn-lg btn-primary" onclick="payDeposit()">Pagar Deposito</button>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-grid">
+                <button class="btn btn-lg btn-primary" onclick="payCash()">Pagar Efectivo</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -159,8 +168,8 @@
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="paymentMakeModal" tabindex="-1">
+<!-- Modal Payment Cash -->
+<div class="modal fade" id="payCash" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -188,7 +197,8 @@
               Total pagado
             </td>
             <td class="fs-2 fw-bold">
-              <input class="form-control" type="number" onkeyup="calculateReturn(this.value)" placeholder="Total Pagado">
+              <input class="form-control" type="number" onkeyup="calculateReturn(this.value)"
+                placeholder="Total Pagado">
             </td>
           </tr>
           <tr>
@@ -201,6 +211,25 @@
             </td>
           </tr>
         </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button class="btn btn-primary" type="button" onclick="saveSale()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Paymeny deposit -->
+<div class="modal fade" id="payDeposit" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Pago con Efectivo</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Content -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
