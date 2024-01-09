@@ -61,36 +61,36 @@
           </ul>
         </li>
 
-        <li class="sidebar-item <?= $theme_path == "lista_ventas" ? 'active' : '' ?>">
-          <a class="sidebar-link <?= $theme_path == "lista_ventas" ? '' : 'collapsed' ?>" data-bs-target="#errors"
+        <li class="sidebar-item <?= $theme_path == "list_sales" ? 'active' : '' ?>">
+          <a class="sidebar-link <?= $theme_path == "list_sales" ? '' : 'collapsed' ?>" data-bs-target="#errors"
             data-bs-toggle="collapse">
             <i class="fa fa-shopping-cart"></i>
             <span class="align-middle">Ventas</span>
           </a>
-          <ul class="sidebar-dropdown list-unstyled collapse <?= $theme_path == "lista_ventas" ? 'show' : '' ?>"
+          <ul class="sidebar-dropdown list-unstyled collapse <?= $theme_path == "list_sales" ? 'show' : '' ?>"
             id="errors" data-bs-parent="#sidebar">
-            <li class="sidebar-item <?= $theme_path == "lista_ventas" ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= APP_URL ?>/controllers/ventas/lista.php">Listar ventas</a>
+            <li class="sidebar-item <?= $theme_path == "list_sales" ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= APP_URL ?>/controllers/sales/list.php">Listar ventas</a>
             </li>
-            <li class="sidebar-item">
+            <!-- <li class="sidebar-item">
               <a class="sidebar-link" href="#">Listar cuentas abiertas</a>
-            </li>
+            </li> -->
           </ul>
         </li>
 
-        <li class="sidebar-item <?= $theme_path == "compras_agregar" ? 'active' : '' ?>">
-          <a class="sidebar-link <?= $theme_path == "compras_agregar" ? '' : 'collapsed' ?>"
+        <li class="sidebar-item <?= $theme_path == "add_purchases" ? 'active' : '' ?>">
+          <a class="sidebar-link <?= $theme_path == "add_purchases" ? '' : 'collapsed' ?>"
             data-bs-target="#ui-elements" data-bs-toggle="collapse">
             <i class="fa fa-plus"></i>
             <span class="align-middle">Compras</span>
           </a>
-          <ul class="sidebar-dropdown list-unstyled collapse <?= $theme_path == "compras_agregar" ? 'show' : '' ?>"
+          <ul class="sidebar-dropdown list-unstyled collapse <?= $theme_path == "add_purchases" ? 'show' : '' ?>"
             id="ui-elements" data-bs-parent="#sidebar">
             <li class="sidebar-item">
               <a class="sidebar-link" href="#">Listar compras</a>
             </li>
-            <li class="sidebar-item <?= $theme_path == "compras_agregar" ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= APP_URL ?>/controllers/compras/agregar.php">Agregar compras</a>
+            <li class="sidebar-item <?= $theme_path == "add_purchases" ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= APP_URL ?>/controllers/purchases/add.php">Agregar compras</a>
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link" href="#">Listar gastos</a>

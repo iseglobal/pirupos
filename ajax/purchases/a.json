@@ -1,0 +1,37 @@
+{
+  "ruc": "20604692777",
+  "razonSocial": "NEGOCIACIONES FERTHI SOCIEDAD ANONIMA CERRADA",
+  "nombreComercial": null,
+  "telefonos": [],
+  "tipo": null,
+  "estado": "ACTIVO",
+  "condicion": "HABIDO",
+  "direccion": "AV. FRANCISCA DE LA CALLE NRO. 479 JUNIN HUANCAYO EL TAMBO",
+  "departamento": "JUNIN",
+  "provincia": "HUANCAYO",
+  "distrito": "EL TAMBO",
+  "fechaInscripcion": null,
+  "sistEmsion": null,
+  "sistContabilidad": null,
+  "actExterior": null,
+  "actEconomicas": [],
+  "cpPago": [],
+  "sistElectronica": [],
+  "fechaEmisorFe": null,
+  "cpeElectronico": [],
+  "fechaPle": null,
+  "padrones": [],
+  "fechaBaja": null,
+  "profesion": null,
+  "ubigeo": "120114",
+  "capital": "EL TAMBO"
+},
+
+{
+  "success": true,
+  "dni": "76749025",
+  "nombres": "JENIFER MILAGROS",
+  "apellidoPaterno": "CURO",
+  "apellidoMaterno": "DE LA CRUZ",
+  "codVerifica": 3
+  }

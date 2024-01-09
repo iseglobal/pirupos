@@ -16,15 +16,15 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
     $ruta_destino = $carpeta_destino . $nombre_archivo;
 
     if (move_uploaded_file($archivo_temporal, $ruta_destino)) {
-      echo "La imagen se ha subido correctamente.";
+      // echo "La imagen se ha subido correctamente.";
     } else {
-      echo "Error al subir la imagen.";
+      // echo "Error al subir la imagen.";
     }
   } else {
-    echo "Por favor, selecciona una imagen.";
+    // echo "Por favor, selecciona una imagen.";
   }
 } else {
-  echo "Error al procesar la imagen.";
+  // echo "Error al procesar la imagen.";
   $nombre_archivo = "no_image.png";
 }
 

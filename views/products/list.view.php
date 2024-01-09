@@ -37,7 +37,7 @@
             <th width="50">Imagen</th>
             <th>Nombre</th>
             <th class="text-center" width="50">Cantidad</th>
-            <th width="120">Precio venta</th>
+            <th width="220">Precio venta</th>
             <th width="150">Acciones</th>
           </tr>
         </thead>
@@ -47,6 +47,7 @@
     </div>
 
     <nav id="pagination-container" class="mt-3" aria-label="Paginacion de productos"></nav>
+    <input id="pageActual" type="text">
   </div>
 </div>
 
@@ -92,8 +93,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>

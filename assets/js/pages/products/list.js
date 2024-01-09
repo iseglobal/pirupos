@@ -1,3 +1,40 @@
+document.addEventListener("DOMContentLoaded", function () {
+  loadTable();
+
+  // Buscar producto
+  document
+    .getElementById("search-products")
+    .addEventListener("keyup", function () {
+      loadTable();
+    });
+
+  // Selector de productos
+  document
+    .getElementById("selector-products")
+    .addEventListener("change", function () {
+      loadTable();
+    });
+
+  // New products
+  document
+    .getElementById("btn-new-product")
+    .addEventListener("click", function () {
+      newProduct();
+    });
+
+  // Guardar
+  document
+    .getElementById("form-new-products")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      saveNewProcuct();
+    });
+
+  console.log(pagaActualInput.value);
+});
+
+const pagaActualInput = document.getElementById("pageActual");
+
 function loadTable(page = 1) {
   var search = document.getElementById("search-products").value;
   var selector = document.getElementById("selector-products").value;
@@ -14,6 +51,8 @@ function loadTable(page = 1) {
       document.getElementById("table-container").innerHTML = data.table;
       document.getElementById("pagination-container").innerHTML =
         data.pagination;
+
+      pagaActualInput.value = data.currentPage;
     });
 }
 
@@ -146,81 +185,79 @@ function deleteProduct(idProduct) {
   });
 }
 
+const modalNewProduct = new bootstrap.Modal(
+  document.getElementById("productsAddModal")
+);
+
 function newProduct() {
-  const newProductForm = document.getElementById("form-new-products");
-
-  const modalNewProduct = new bootstrap.Modal(
-    document.getElementById("productsAddModal")
-  );
-
-  newProductForm.reset();
-
-  // Cuando el formulario se envía
-  newProductForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    fetch(baseURL + "/ajax/products/new.ajax.php", {
-      method: "POST",
-      body: new FormData(newProductForm),
-    })
-      .then((response) => response.text())
-      .then((data) => {
-        console.log(data);
-        modalNewProduct.hide();
-        loadTable();
-
-        // if (data.success == true) {
-        //   myModal.hide();
-        //   loadTable();
-        //   Swal.fire({
-        //     title: "Correcto",
-        //     text: data.message,
-        //     icon: "success",
-        //   });
-        // } else {
-        //   Swal.fire({
-        //     title: "Error",
-        //     text: "Error",
-        //     icon: "error",
-        //   });
-        // }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        // if (data.success != true) {
-        //   Swal.fire({
-        //     title: "Error",
-        //     text: "Error",
-        //     icon: "error",
-        //   });
-        // }
-      });
-  });
-
   modalNewProduct.show();
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  loadTable();
+function saveNewProcuct() {
+  const newProductForm = document.getElementById("form-new-products");
 
-  // Buscar producto
-  document
-    .getElementById("search-products")
-    .addEventListener("keyup", function () {
+  fetch(baseURL + "/ajax/products/new.ajax.php", {
+    method: "POST",
+    body: new FormData(newProductForm),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success == true) {
+        Swal.fire({
+          title: "Correcto",
+          text: data.message,
+          icon: "success",
+        }).then((result) => {
+          newProductForm.reset();
+          loadTable();
+          modalNewProduct.hide();
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "Error",
+          icon: "error",
+        });
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      Swal.fire({
+        title: "Error",
+        text: "Error",
+        icon: "error",
+      });
+    });
+}
+
+function updatePriceProduct(event, idProduct) {
+  const boton = event.target;
+  const input = boton.previousElementSibling;
+  const valorInput = input.value;
+
+  console.log("Valor del input: ", valorInput, "ID del producto: " + idProduct);
+
+  fetch(baseURL + "/ajax/products/update-price.ajax.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: "id=" + idProduct + "&newPrice=" + valorInput,
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      console.log(data);
+
+      Toastify({
+        text: "Se actualizó el precio.",
+        className: "info",
+        close: true,
+        gravity: "bottom",
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+      }).showToast();
+
       loadTable();
     });
-
-  // Selector de productos
-  document
-    .getElementById("selector-products")
-    .addEventListener("change", function () {
-      loadTable();
-    });
-
-  // New products
-  document
-    .getElementById("btn-new-product")
-    .addEventListener("click", function () {
-      newProduct();
-    });
-});
+}

@@ -53,12 +53,18 @@ if (!empty($products)) {
       $table .= "<td class=\"text-center\"><span class='badge fs-6 badge-light-success'>$product->quantity</span></td>";
     }
 
-    if ($product->price_sale != 0) {
-      $table .= "<td class='fw-bold'>S/. $product->price_sale</td>";
-    } else {
-      $table .= "<td class='fw-bold'>-</td>";
-    }
+    // if ($product->price_sale != 0) {
+    //   $table .= "<td class='fw-bold'>S/. $product->price_sale</td>";
+    // } else {
+    //   $table .= "<td class='fw-bold'>-</td>";
+    // }
 
+    $table .= "<td>
+                <div class=\"input-group\">
+                  <input type=\"text\" class=\"form-control\" value=\"$product->price_sale\">
+                  <button class=\"btn btn-outline-success\" onclick=\"updatePriceProduct(event, $product->id)\">Enviar</button>
+                </div>
+              </td>";
 
     $table .= "<td>
                   <button class=\"btn btn-light-success\" type=\"button\" onclick=\"edithProduct($product->id)\">
@@ -115,4 +121,4 @@ if ($page < $totalPages) {
 
 $pagination .= '</ul>';
 
-echo json_encode(['table' => $table, 'pagination' => $pagination]);
+echo json_encode(['table' => $table, 'pagination' => $pagination, 'currentPage' => $page]);
