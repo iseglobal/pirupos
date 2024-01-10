@@ -47,7 +47,6 @@
     </div>
 
     <nav id="pagination-container" class="mt-3" aria-label="Paginacion de productos"></nav>
-    <input id="pageActual" type="text">
   </div>
 </div>
 

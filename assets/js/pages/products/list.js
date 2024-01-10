@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // const initialPage = parseInt(getCookie("currentPage")) || 1;
+  // loadTable(initialPage);
+
   loadTable();
 
   // Buscar producto
@@ -29,11 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       saveNewProcuct();
     });
-
-  console.log(pagaActualInput.value);
 });
-
-const pagaActualInput = document.getElementById("pageActual");
 
 function loadTable(page = 1) {
   var search = document.getElementById("search-products").value;
@@ -52,8 +51,24 @@ function loadTable(page = 1) {
       document.getElementById("pagination-container").innerHTML =
         data.pagination;
 
-      pagaActualInput.value = data.currentPage;
+      // setCookie("currentPage", page, 1);
+      // window.history.replaceState({}, "", "?page=" + page);
     });
+}
+
+// Función para obtener el valor de una cookie
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+}
+
+// Función para establecer el valor de una cookie
+function setCookie(name, value, days) {
+  const date = new Date();
+  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+  const expires = `expires=${date.toUTCString()}`;
+  document.cookie = `${name}=${value}; ${expires}; path=/`;
 }
 
 function mostrarNuevaImagen(input) {

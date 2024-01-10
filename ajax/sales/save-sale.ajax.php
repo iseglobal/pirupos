@@ -23,9 +23,24 @@ if (isset($_SESSION['selected_products_buys']) && !empty($_SESSION['selected_pro
 
   $fecha_actual = date("Y-m-d H:i:s");
 
-  $sql  = "INSERT INTO sales (date, subtotal, total_items) 
-          VALUES(:date, :subtotal, :total_items)";
+  $query     = "SELECT MAX(correlative) as max_corelative FROM sales";
+  $statement = $connect->prepare($query);
+  $statement->execute();
+
+  $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+  $ultimoNumeroVenta = $result['max_corelative'];
+
+  if ($ultimoNumeroVenta == "") {
+    $ultimoNumeroVenta = CORRELATIVE_INIT;
+  }
+
+  $correlative = generarCorrelativo($ultimoNumeroVenta);
+
+  $sql  = "INSERT INTO sales (correlative, date, subtotal, total_items) 
+          VALUES(:correlative, :date, :subtotal, :total_items)";
   $stmt = $connect->prepare($sql);
+  $stmt->bindParam(":correlative", $correlative);
   $stmt->bindParam(":date", $fecha_actual);
   $stmt->bindParam(":subtotal", $precioTotal);
   $stmt->bindParam(":total_items", $cantidadTodal);

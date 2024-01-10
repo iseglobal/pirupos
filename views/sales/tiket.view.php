@@ -286,12 +286,12 @@
               <div
                 style="flex-direction: column;padding-bottom: 10px;text-align: center;justify-items: center;justify-content: center;align-items: center;">
                 <div class="containerx">
-                  <img src="/assets/img/logo.png" width="100%" height="100%" alt="Logotipo">
+                  <img src="<?= BUSSINES_LOGO ?>" width="100%" height="100%" alt="Logotipo">
                 </div>
               </div>
               <div style="text-align:center">
                 <span>
-                  <?= APP_NAME ?>
+                  <?= BUSSINES_NAME ?>
                 </span>
               </div>
               <section class="title-companyDirtk" style="padding-top: 5px; padding-bottom: 5px; text-align: center;">
@@ -305,7 +305,9 @@
               <div style="display:flex; flex-direction: column;justify-content: center;align-items: center;">
 
                 <span class="title-doc">Nota de Venta</span>
-                <span class="title-doc-number">NV01 &nbsp;- 00000404</span>
+                <span class="title-doc-number">
+                  <?= $sale->correlative ?>
+                </span>
               </div>
 
               <hr style="border: none;border-top: 0.5px solid black;padding: 0px; margin: 0px;padding-bottom: 2.5px;">
@@ -315,7 +317,10 @@
                 style="display:flex; flex-direction: column;justify-content: center;padding-bottom: 8px;">
                 <div style="display:flex; flex-direction: row;padding: 0px;margin:0px;">
                   <span>Fecha de atención:</span>
-                  <label>07/01/2024 10:59 AM</label>
+                  <label>
+                    <?= formatearFecha($sale->date) ?>
+                  </label>
+                  <!-- 07/01/2024 10:59 AM -->
                 </div>
 
                 <div style="display:flex; flex-direction: row;padding: 0px;margin:0px;">
@@ -379,7 +384,9 @@
                     <span>TOTAL VENTA</span>
                   </DIV>
                   <DIV STYLE="flex: 1;text-align: end;">
-                    <label>8.50</label>
+                    <label>
+                      <?= $sale->subtotal ?>
+                    </label>
                   </DIV>
                 </div>
 
@@ -403,7 +410,8 @@
               </div>
 
               <div style="padding-top:10px;">
-                <strong>Son:</strong>&nbsp;<span>OCHO CON 50/100</span>
+                <!-- <strong>Son:</strong>&nbsp;<span><?= convertirNumeroEnPalabras(8.50) ?></span> -->
+                <!-- <strong>Son:</strong>&nbsp;<span>OCHO CON 50/100</span> -->
               </div>
 
               <div style="padding-top:10px;">
