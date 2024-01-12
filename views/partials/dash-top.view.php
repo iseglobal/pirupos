@@ -22,41 +22,45 @@
         </li>
 
         <li
-          class="sidebar-item <?= $theme_path == "list_products" || $theme_path == "add_products" || $theme_path == "impor_products" ? 'active' : '' ?>">
-          <a class="sidebar-link  <?= $theme_path == "list_products" || $theme_path == "add_products" || $theme_path == "impor_products" ? '' : 'collapsed' ?>"
+          class="sidebar-item <?= $theme_path == "list_products" || $theme_path == "add_products" || $theme_path == "import_products" ? 'active' : '' ?>">
+          <a class="sidebar-link  <?= $theme_path == "list_products" || $theme_path == "add_products" || $theme_path == "import_products" ? '' : 'collapsed' ?>"
             data-bs-target="#pages" data-bs-toggle="collapse">
             <i class="fa fa-barcode"></i>
             <span class="align-middle">Productos</span>
           </a>
           <ul
-            class="sidebar-dropdown list-unstyled collapse <?= $theme_path == "list_products" || $theme_path == "add_products" || $theme_path == "impor_products" ? 'show' : '' ?>"
+            class="sidebar-dropdown list-unstyled collapse <?= $theme_path == "list_products" || $theme_path == "add_products" || $theme_path == "import_products" ? 'show' : '' ?>"
             id="pages" data-bs-parent="#sidebar">
             <li class="sidebar-item <?= $theme_path == "list_products" ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= APP_URL ?>/controllers/products/list.php">Lista de productos</a>
             </li>
-            <!-- <li class="sidebar-item <?= $theme_path == "add_products" ? 'active' : '' ?>">
-            <a class="sidebar-link" href="<?= APP_URL ?>/controllers/products/add.php">Agregar productos</a>
-          </li> -->
-            <li class="sidebar-item <?= $theme_path == "impor_products" ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= APP_URL ?>/controllers/products/impor.php">Importar productos</a>
+            <li class="sidebar-item <?= $theme_path == "add_products" ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= APP_URL ?>/controllers/products/add.php">Agregar productos</a>
+            </li>
+            <li class="sidebar-item <?= $theme_path == "import_products" ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= APP_URL ?>/controllers/products/import.php">Importar productos</a>
             </li>
           </ul>
         </li>
 
-        <li class="sidebar-item">
-          <a class="sidebar-link collapsed" data-bs-target="#auth" data-bs-toggle="collapse">
+        <li
+          class="sidebar-item <?= $theme_path == "list_categories" || $theme_path == "add_categories" || $theme_path == "import_categories" ? 'active' : '' ?>">
+          <a class="sidebar-link <?= $theme_path == "list_categories" || $theme_path == "add_categories" || $theme_path == "import_categories" ? '' : 'collapsed' ?>"
+            data-bs-target="#auth" data-bs-toggle="collapse">
             <i class="fa fa-folder"></i>
             <span class="align-middle">Categoria</span>
           </a>
-          <ul class="sidebar-dropdown list-unstyled collapse" id="auth" data-bs-parent="#sidebar">
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="#">Listar categoria</a>
+          <ul
+            class="sidebar-dropdown list-unstyled collapse <?= $theme_path == "list_categories" || $theme_path == "add_categories" || $theme_path == "import_categories" ? 'show' : '' ?>"
+            id="auth" data-bs-parent="#sidebar">
+            <li class="sidebar-item <?= $theme_path == "list_categories" ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= APP_URL ?>/controllers/categories/list.php">Listar categoria</a>
             </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="#">Agregar categoria</a>
+            <li class="sidebar-item <?= $theme_path == "add_categories" ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= APP_URL ?>/controllers/categories/add.php">Agregar categoria</a>
             </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="#">Importar categoria</a>
+            <li class="sidebar-item <?= $theme_path == "import_categories" ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= APP_URL ?>/controllers/categories/import.php">Importar categoria</a>
             </li>
           </ul>
         </li>
@@ -78,75 +82,76 @@
           </ul>
         </li>
 
-        <li class="sidebar-item <?= $theme_path == "add_purchases" ? 'active' : '' ?>">
-          <a class="sidebar-link <?= $theme_path == "add_purchases" ? '' : 'collapsed' ?>"
+        <li class="sidebar-item <?= $theme_path == "list_purchases" || $theme_path == "add_purchases" || $theme_path == "expenses" || $theme_path == "add_expense" ? 'active' : '' ?>">
+          <a class="sidebar-link <?= $theme_path == "list_purchases" || $theme_path == "add_purchases" || $theme_path == "expenses" || $theme_path == "add_expense" ? '' : 'collapsed' ?>"
             data-bs-target="#ui-elements" data-bs-toggle="collapse">
             <i class="fa fa-plus"></i>
             <span class="align-middle">Compras</span>
           </a>
-          <ul class="sidebar-dropdown list-unstyled collapse <?= $theme_path == "add_purchases" ? 'show' : '' ?>"
+          <ul
+            class="sidebar-dropdown list-unstyled collapse <?= $theme_path == "list_purchases" || $theme_path == "add_purchases" || $theme_path == "expenses" || $theme_path == "add_expense" ? 'show' : '' ?>"
             id="ui-elements" data-bs-parent="#sidebar">
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="#">Listar compras</a>
+            <li class="sidebar-item <?= $theme_path == "list_purchases" ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= APP_URL ?>/controllers/purchases/list.php"">Listar compras</a>
             </li>
-            <li class="sidebar-item <?= $theme_path == "add_purchases" ? 'active' : '' ?>">
-              <a class="sidebar-link" href="<?= APP_URL ?>/controllers/purchases/add.php">Agregar compras</a>
+            <li class=" sidebar-item <?= $theme_path == "add_purchases" ? 'active' : '' ?>">
+                <a class="sidebar-link" href="<?= APP_URL ?>/controllers/purchases/add.php">Agregar compras</a>
             </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="#">Listar gastos</a>
+            <li class="sidebar-item <?= $theme_path == "expenses" ? 'active' : '' ?>">
+              <a class="sidebar-link" href="<?= APP_URL ?>/controllers/purchases/expenses.php"">Listar gastos</a>
             </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="#">Agregar gastos</a>
-            </li>
-          </ul>
-        </li>
-
-        <li class="sidebar-item">
-          <a class="sidebar-link collapsed" data-bs-target="#tables" data-bs-toggle="collapse">
-            <i class="fa fa-cogs"></i>
-            <span class="align-middle">Ajustes</span>
-          </a>
-          <ul class="sidebar-dropdown list-unstyled collapse" id="tables" data-bs-parent="#sidebar">
-            <li class="sidebar-item">
-              <a class="sidebar-link" href=#">Ajustes</a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href=#">Respaldos</a>
+            <li class=" sidebar-item <?= $theme_path == "add_expense" ? 'active' : '' ?>">
+                <a class="sidebar-link" href="<?= APP_URL ?>/controllers/purchases/add_expense.php"">Agregar gastos</a>
             </li>
           </ul>
         </li>
 
-        <li class="sidebar-item">
-          <a class="sidebar-link collapsed" data-bs-target="#forms" data-bs-toggle="collapse">
-            <i class="fa fa-bar-chart-o"></i>
-            <span class="align-middle">Reportes</span>
-          </a>
-          <ul class="sidebar-dropdown list-unstyled collapse" id="forms" data-bs-parent="#sidebar">
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="#">Ventas diarias</a>
+        <li class=" sidebar-item">
+                  <a class="sidebar-link collapsed" data-bs-target="#tables" data-bs-toggle="collapse">
+                    <i class="fa fa-cogs"></i>
+                    <span class="align-middle">Ajustes</span>
+                  </a>
+                  <ul class="sidebar-dropdown list-unstyled collapse" id="tables" data-bs-parent="#sidebar">
+                    <li class="sidebar-item">
+                      <a class="sidebar-link" href=#">Ajustes</a>
+                    </li>
+                    <li class="sidebar-item">
+                      <a class="sidebar-link" href=#">Respaldos</a>
+                    </li>
+                  </ul>
             </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="#">Ventas mensuales</a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="#">Reporte de ventas</a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="#">Reporte de pagos</a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="#">Reporte registrados</a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="#">Productos top</a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="#">Reporte de productos</a>
-            </li>
-          </ul>
-        </li>
 
-      </ul>
+            <li class="sidebar-item">
+              <a class="sidebar-link collapsed" data-bs-target="#forms" data-bs-toggle="collapse">
+                <i class="fa fa-bar-chart-o"></i>
+                <span class="align-middle">Reportes</span>
+              </a>
+              <ul class="sidebar-dropdown list-unstyled collapse" id="forms" data-bs-parent="#sidebar">
+                <li class="sidebar-item">
+                  <a class="sidebar-link" href="#">Ventas diarias</a>
+                </li>
+                <li class="sidebar-item">
+                  <a class="sidebar-link" href="#">Ventas mensuales</a>
+                </li>
+                <li class="sidebar-item">
+                  <a class="sidebar-link" href="#">Reporte de ventas</a>
+                </li>
+                <li class="sidebar-item">
+                  <a class="sidebar-link" href="#">Reporte de pagos</a>
+                </li>
+                <li class="sidebar-item">
+                  <a class="sidebar-link" href="#">Reporte registrados</a>
+                </li>
+                <li class="sidebar-item">
+                  <a class="sidebar-link" href="#">Productos top</a>
+                </li>
+                <li class="sidebar-item">
+                  <a class="sidebar-link" href="#">Reporte de productos</a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
     </div>
   </nav>
   <div class="main">

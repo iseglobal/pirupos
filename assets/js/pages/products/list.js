@@ -163,7 +163,7 @@ function edithProduct(idProduct) {
 }
 
 function deleteProduct(idProduct) {
-  console.log("Eliminar: " + idProduct);
+  // console.log("Eliminar: " + idProduct);
 
   Swal.fire({
     title: "¿Quieres eliminarlo?",
@@ -185,14 +185,13 @@ function deleteProduct(idProduct) {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
-
           if (data.success == true) {
             Swal.fire({
               title: "Eliminado",
               text: data.message,
               icon: "success",
             });
+            // console.log(data);
             loadTable();
           }
         });
