@@ -32,6 +32,7 @@ if (!empty($sales)) {
       IntlDateFormatter::GREGORIAN,
       "EEEE d 'de' MMMM 'de' y hh:mm a"
     );
+    
     $fechaFormateada = strtoupper($fmt->format($fechaObjeto));
 
     $table .= "<tr>";
