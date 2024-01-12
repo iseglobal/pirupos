@@ -3,8 +3,8 @@
 require "../../core.php";
 
 /* ============ Theme config ========== */
-$theme_title   = "Editar productos";
-$theme_path    = "edit_products";
+$theme_title   = "Importar Productos";
+$theme_path    = "import_products";
 // $theme_styles = [
 //   "assets/css/sweetalert2.css",
 //   "assets/css/toastifyjs.css",

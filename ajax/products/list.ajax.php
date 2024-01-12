@@ -94,7 +94,11 @@ $prevPage = $page - 1;
 $nextPage = $page + 1;
 
 if ($page > 1) {
-  $pagination .= '<li class="page-item"><a class="page-link" role="button" onclick="loadTable(' . $prevPage . ')"><i class="fa-solid fa-chevron-left"></i></a></li>';
+  $pagination .= '<li class="page-item">
+                    <a class="page-link" role="button" onclick="loadTable(' . $prevPage . ')">
+                      <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                  </li>';
 }
 
 $startPage = max(1, $page - 1);
