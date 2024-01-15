@@ -10,7 +10,7 @@
 
     <div class="row mb-3">
       <div class="col-lg-9">
-        <input class="form-control" type="text" id="search-products" placeholder="Buscar por nombre" autofocus>
+        <input class="form-control" type="search" id="search-products" placeholder="Buscar por nombre" autofocus>
       </div>
       <div class="col-lg-3">
         <select id="selector-products" class="form-select">
@@ -42,6 +42,14 @@
           </tr>
         </thead>
         <tbody id="table-container">
+          <tr id="loading-row" class="position-relative d-none">
+            <td colspan="5" class="text-center">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <span class="ms-2">Cargando...</span>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -53,13 +61,13 @@
 <!-- Agregar Modal -->
 <div class="modal fade" id="productsAddModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo producto</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="form-new-products" method="post" enctype="multipart/form-data">
+    <form id="form-new-products" method="post" enctype="multipart/form-data">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
           <div class="mb-3">
             <label class="form-label">Nombre</label>
             <input class="form-control" type="text" value="" name="name" required>
@@ -87,28 +95,28 @@
             <input class="form-control" type="file" name="image" accept="image/*" capture="user">
           </div>
 
-          <button class="btn btn-primary" type="submit">Guardar</button>
 
-        </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit">Guardar</button>
+          <!-- <button type="button" class="btn btn-primary">Guardar</button> -->
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Guardar</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
 
 <!-- Editar Modal -->
 <div class="modal fade" id="productsEditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5">Editar producto</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="form-edit-products" method="post" enctype="multipart/form-data">
+    <form id="form-edit-products" method="post" enctype="multipart/form-data">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Editar producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
           <input type="hidden" name="id">
           <div class="mb-3">
             <label class="form-label">Nombre</label>
@@ -139,14 +147,14 @@
               onchange="mostrarNuevaImagen(this)">
           </div>
 
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           <button class="btn btn-primary" type="submit">Guardar</button>
-
-        </form>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
