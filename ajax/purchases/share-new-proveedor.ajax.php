@@ -1,32 +1,26 @@
 <?php
 require "../../core.php";
 
-$identProveedor = $_POST["identProveedor"];
-
-echo strlen($identProveedor)."\n";
-echo $identProveedor."\n";
+$identProveedor = $_POST["docId"];
 
 if (strlen($identProveedor) == 8) {
-  echo "DNI";
-}elseif (strlen($identProveedor) == 11) {
-  echo "RUC";
-}else{
-  echo "Numero incorrecto";
+  $apiUrl = "https://dniruc.apisperu.com/api/v1/dni/$identProveedor?token=" . APIPERU_TOKEN;
+  $response   = file_get_contents($apiUrl);
+  $data = json_decode($response, true);
+
+  echo json_encode(["type" => "DNI", "content" => $data]);
+} elseif (strlen($identProveedor) == 11) {
+  $apiUrl = "https://dniruc.apisperu.com/api/v1/ruc/$identProveedor?token=" . APIPERU_TOKEN;
+  $response   = file_get_contents($apiUrl);
+  $data = json_decode($response, true);
+
+  echo json_encode(["type" => "RUC", "content" => $data]);
+} else {
+  echo json_encode([
+    "success" => false,
+    "message" => "Numero incorrecto",
+  ]);
 }
-
-// URL de la API
-// $apiUrl = "https://dniruc.apisperu.com/api/v1/ruc/$identProveedor?token=" . APIPERU_TOKEN;
-
-// Realizar la solicitud a la API utilizando file_get_contents
-// $response = file_get_contents($apiUrl);
-
-// Decodificar la respuesta JSON
-// $data = json_decode($response, true);
-
-// Manejar la respuesta de la API
-// print_r($data);
-
-// echo $response;
 
 
 // $ruc              = "20604692777";

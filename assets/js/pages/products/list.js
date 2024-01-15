@@ -1,21 +1,40 @@
 document.addEventListener("DOMContentLoaded", function () {
+  let storedPage = sessionStorage.getItem("currentPage");
+  let page = storedPage !== null ? parseInt(storedPage) : 1;
+
   // const initialPage = parseInt(getCookie("currentPage")) || 1;
   // loadTable(initialPage);
 
-  loadTable();
+  // let urlParams = new URLSearchParams(window.location.search);
+  // let pageValue = urlParams.get("page");
+  // let page = pageValue !== null ? pageValue : 1;
+
+  loadTable(page);
 
   // Buscar producto
+  // document
+  //   .getElementById("search-products")
+  //   .addEventListener("keyup", function (event) {
+  //     if (
+  //       event.key === "Enter" ||
+  //       event.key === "Delete" ||
+  //       event.key === "Backspace"
+  //     ) {
+  //       loadTable(1);
+  //     }
+  //   });
+
   document
     .getElementById("search-products")
-    .addEventListener("keyup", function () {
-      loadTable();
+    .addEventListener("search", function () {
+      loadTable(1);
     });
 
   // Selector de productos
   document
     .getElementById("selector-products")
     .addEventListener("change", function () {
-      loadTable();
+      loadTable(1);
     });
 
   // New products
@@ -34,25 +53,48 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-function loadTable(page = 1) {
+function toggleLoading(show) {
+  let loadingElement = document.getElementById("loading-element");
+
+  if (show) {
+    loadingElement.classList.remove("d-none");
+  } else {
+    loadingElement.classList.add("d-none");
+  }
+}
+
+function loadTable(page) {
   var search = document.getElementById("search-products").value;
   var selector = document.getElementById("selector-products").value;
+
+  toggleLoading(true);
 
   fetch(baseURL + "/ajax/products/list.ajax.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: "page=" + page + "&search=" + search + "&sort=" + selector,
+    body: new URLSearchParams({
+      page: parseInt(page),
+      search: search,
+      sort: selector,
+    }),
   })
     .then((response) => response.json())
     .then((data) => {
+      toggleLoading(false);
+
       document.getElementById("table-container").innerHTML = data.table;
       document.getElementById("pagination-container").innerHTML =
         data.pagination;
 
+      sessionStorage.setItem("currentPage", data.currentPage);
       // setCookie("currentPage", page, 1);
-      // window.history.replaceState({}, "", "?page=" + page);
+      // window.history.replaceState({}, "", "?page=" + data.currentPage);
+    })
+    .catch((error) => {
+      toggleLoading(false);
+      console.error("Error:", error);
     });
 }
 
@@ -86,7 +128,11 @@ function mostrarNuevaImagen(input) {
 }
 
 function edithProduct(idProduct) {
-  console.log("Editar: " + idProduct);
+  // console.log("Editar: " + idProduct);
+
+  // Pagina actual
+  let storedPage = sessionStorage.getItem("currentPage");
+  let page = storedPage !== null ? parseInt(storedPage) : 1;
 
   const formEditProduct = document.getElementById("form-edit-products");
 
@@ -111,11 +157,11 @@ function edithProduct(idProduct) {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
 
         if (data.success == true) {
           myModal.hide();
-          loadTable();
+          loadTable(page);
           Swal.fire({
             title: "Correcto",
             text: data.message,
@@ -165,6 +211,10 @@ function edithProduct(idProduct) {
 function deleteProduct(idProduct) {
   // console.log("Eliminar: " + idProduct);
 
+  //Page Actual
+  let storedPage = sessionStorage.getItem("currentPage");
+  let page = storedPage !== null ? parseInt(storedPage) : 1;
+
   Swal.fire({
     title: "¿Quieres eliminarlo?",
     text: "Al eliminar este producto no podras recuperarlo.",
@@ -192,7 +242,7 @@ function deleteProduct(idProduct) {
               icon: "success",
             });
             // console.log(data);
-            loadTable();
+            loadTable(page);
           }
         });
     }
@@ -210,6 +260,10 @@ function newProduct() {
 function saveNewProcuct() {
   const newProductForm = document.getElementById("form-new-products");
 
+  //Page Actual
+  let storedPage = sessionStorage.getItem("currentPage");
+  let page = storedPage !== null ? parseInt(storedPage) : 1;
+
   fetch(baseURL + "/ajax/products/new.ajax.php", {
     method: "POST",
     body: new FormData(newProductForm),
@@ -223,7 +277,7 @@ function saveNewProcuct() {
           icon: "success",
         }).then((result) => {
           newProductForm.reset();
-          loadTable();
+          loadTable(page);
           modalNewProduct.hide();
         });
       } else {
@@ -249,6 +303,10 @@ function updatePriceProduct(event, idProduct) {
   const input = boton.previousElementSibling;
   const valorInput = input.value;
 
+  //Page Actual
+  let storedPage = sessionStorage.getItem("currentPage");
+  let page = storedPage !== null ? parseInt(storedPage) : 1;
+
   console.log("Valor del input: ", valorInput, "ID del producto: " + idProduct);
 
   fetch(baseURL + "/ajax/products/update-price.ajax.php", {
@@ -272,6 +330,6 @@ function updatePriceProduct(event, idProduct) {
         },
       }).showToast();
 
-      loadTable();
+      loadTable(page);
     });
 }
