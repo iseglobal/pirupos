@@ -5,19 +5,34 @@
 
     <div class="mb-3">
       <div class="row">
-        <div class="col-8">
-          <input class="form-control" type="number" name="ruc-proveedor" placeholder="RUC">
+        <div class="col-10">
+          <input class="form-control" type="text" name="search-suppliers" onkeyup="searchSuppliers(this.value)"
+            placeholder="Buscar por RUC, DNI o Nombre">
         </div>
         <div class="col-2">
-          <button id="btnShareProveedor" class="btn btn-light-primary w-100">Buscar</button>
+          <button id="add-new-purchases" class="btn btn-info w-100" onclick="newSuppliersModal()">
+            <i class="fa fa-plus"></i>
+            Nuevo
+          </button>
         </div>
-        <div class="col-2">
-          <button id="btnShareNewProveedor" class="btn btn-light-primary w-100">Nuevo</button>
-        </div>
+      </div>
+
+      <div id="tableProveedor " class="table-responsive my-3">
+        <table class="table table-sm table-bordered table-striped table-hover align-middle">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Producto</th>
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody id="resultadosProveedor">
+          </tbody>
+        </table>
       </div>
     </div>
 
-    <div class="mb-3">
+    <!-- <div class="mb-3">
       <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">Empresa</span>
         <input id="prov-empresa" type="text" class="form-control">
@@ -48,7 +63,7 @@
         <input id="prov-direccion" type="text" class="form-control" disabled>
       </div>
 
-    </div>
+    </div> -->
 
     <hr>
 
@@ -102,5 +117,63 @@
       <button id="pagaConEfectivo" class="btn btn-primary mb-1" type="button">Agregar compra</button>
     </div>
 
+  </div>
+</div>
+
+<!-- Modal nuevo proveedor -->
+<div class="modal fade" id="suppliersNewModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <form id="form-new-suppliers" method="post" enctype="multipart/form-data">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Ruc / DNI</label>
+            <div class="input-group mb-3">
+              <input id="docIdInput" class="form-control" type="number" placeholder="RUC / DNI" name="doc_id">
+              <button id="searchApiSuppliers" class="input-group-text btn btn-info" type="button"
+                onclick="searchSuppliersApi()">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Empresa</label>
+            <input class="form-control" type="text" name="company">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Nombres</label>
+            <input class="form-control" type="text" name="names">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Apellidos</label>
+            <input class="form-control" type="text" name="lastname">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Telefono</label>
+            <input class="form-control" type="text" name="phone">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input class="form-control" type="text" name="email">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Direccion</label>
+            <input class="form-control" type="text" name="addess">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Observación</label>
+            <textarea class="form-control" name="observation"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary" type="submit">Guardar</button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
