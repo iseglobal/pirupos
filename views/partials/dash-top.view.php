@@ -34,16 +34,16 @@
             <li class="sidebar-item <?= $theme_path == "list_products" ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= APP_URL ?>/controllers/products/list.php">Lista de productos</a>
             </li>
-            <li class="sidebar-item <?= $theme_path == "add_products" ? 'active' : '' ?>">
+            <!-- <li class="sidebar-item <?= $theme_path == "add_products" ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= APP_URL ?>/controllers/products/add.php">Agregar productos</a>
-            </li>
-            <li class="sidebar-item <?= $theme_path == "import_products" ? 'active' : '' ?>">
+            </li> -->
+            <!-- <li class="sidebar-item <?= $theme_path == "import_products" ? 'active' : '' ?>">
               <a class="sidebar-link" href="<?= APP_URL ?>/controllers/products/import.php">Importar productos</a>
-            </li>
+            </li> -->
           </ul>
         </li>
 
-        <li
+        <!-- <li
           class="sidebar-item <?= $theme_path == "list_categories" || $theme_path == "add_categories" || $theme_path == "import_categories" ? 'active' : '' ?>">
           <a class="sidebar-link <?= $theme_path == "list_categories" || $theme_path == "add_categories" || $theme_path == "import_categories" ? '' : 'collapsed' ?>"
             data-bs-target="#auth" data-bs-toggle="collapse">
@@ -63,7 +63,7 @@
               <a class="sidebar-link" href="<?= APP_URL ?>/controllers/categories/import.php">Importar categoria</a>
             </li>
           </ul>
-        </li>
+        </li> -->
 
         <li class="sidebar-item <?= $theme_path == "list_sales" ? 'active' : '' ?>">
           <a class="sidebar-link <?= $theme_path == "list_sales" ? '' : 'collapsed' ?>" data-bs-target="#errors"
@@ -82,7 +82,8 @@
           </ul>
         </li>
 
-        <li class="sidebar-item <?= $theme_path == "list_purchases" || $theme_path == "add_purchases" || $theme_path == "expenses" || $theme_path == "add_expense" ? 'active' : '' ?>">
+        <li
+          class="sidebar-item <?= $theme_path == "list_purchases" || $theme_path == "add_purchases" || $theme_path == "expenses" || $theme_path == "add_expense" ? 'active' : '' ?>">
           <a class="sidebar-link <?= $theme_path == "list_purchases" || $theme_path == "add_purchases" || $theme_path == "expenses" || $theme_path == "add_expense" ? '' : 'collapsed' ?>"
             data-bs-target="#ui-elements" data-bs-toggle="collapse">
             <i class="fa fa-plus"></i>

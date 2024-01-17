@@ -1,18 +1,46 @@
 const modalNewSuppliers = new bootstrap.Modal(
   document.getElementById("suppliersNewModal")
 );
-modalNewSuppliers.show();
 
-function searchSuppliers(search) {
-  console.log(search);
+const formNewSuppliers = document.getElementById("form-new-suppliers");
+
+formNewSuppliers.addEventListener("submit", function (event) {
+  event.preventDefault();
+  saveNewSuppliers();
+});
+
+// modalNewSuppliers.show();
+
+function searchSuppliers(searchTerm) {
+  // console.log(search);
+  const tableSuppliers = document.getElementById("tableSuppliers");
+  const resultSuppliers = document.getElementById("resultSuppliers");
+
+  if (searchTerm.trim() !== "") {
+    tableSuppliers.classList.remove("d-none");
+
+    fetch(baseURL + "/ajax/purchases/suppliers-search.ajax.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: "searchTerm=" + searchTerm,
+    })
+      .then((response) => response.text())
+      .then((html) => {
+        resultSuppliers.innerHTML = html;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  } else {
+    tableSuppliers.classList.add("d-none");
+  }
 }
 
 function newSuppliersModal() {
-  console.log("Nuevo proveedor");
   modalNewSuppliers.show();
 }
-
-let formNewSuppliers = document.getElementById("form-new-suppliers");
 
 function searchSuppliersApi() {
   let docIdValue = document.getElementById("docIdInput").value;
@@ -36,7 +64,7 @@ function searchSuppliersApi() {
         formNewSuppliers.elements["lastname"].value = "-";
         formNewSuppliers.elements["phone"].value = "-";
         formNewSuppliers.elements["email"].value = "-";
-        formNewSuppliers.elements["addess"].value = data.content.direccion;
+        formNewSuppliers.elements["address"].value = data.content.direccion;
         // formNewSuppliers.elements["observation"].value = data.observation;
       }
       if (data.type == "DNI") {
@@ -46,11 +74,9 @@ function searchSuppliersApi() {
           data.content.apellidoPaterno + " " + data.content.apellidoMaterno;
         formNewSuppliers.elements["phone"].value = "-";
         formNewSuppliers.elements["email"].value = "-";
-        formNewSuppliers.elements["addess"].value = "-";
+        formNewSuppliers.elements["address"].value = "-";
         // formNewSuppliers.elements["observation"].value = data.observation;
       }
-
-      console.log(data);
     })
     .catch((error) => {
       // toggleLoading(false);
@@ -59,7 +85,42 @@ function searchSuppliersApi() {
 }
 
 function saveNewSuppliers() {
-  console.log("guardando");
+  // console.log("guardando");
+  fetch(baseURL + "/ajax/purchases/suppliers-add.ajax.php", {
+    method: "POST",
+    body: new FormData(formNewSuppliers),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success == true) {
+        Swal.fire({
+          title: "Correcto",
+          text: data.message,
+          icon: "success",
+        }).then((result) => {
+          formNewSuppliers.reset();
+          modalNewSuppliers.hide();
+        });
+      } else if (data.success == false) {
+        Swal.fire({
+          title: "Error",
+          text: data.message,
+          icon: "error",
+        });
+      }
+    })
+    .catch((error) => {
+      console.log("Error:", error);
+      Swal.fire({
+        title: "Error",
+        text: error,
+        icon: "error",
+      });
+    });
 }
 
-addEventListener("submit", saveNewSuppliers());
+function addsupplierSale() {
+  const boxSearchSuppliers = document.getElementById("boxSearchSuppliers");
+
+  boxSearchSuppliers.classList.add("d-none");
+}
