@@ -3,7 +3,7 @@
 
     <h5>Proveedor</h5>
 
-    <div class="mb-3">
+    <div id="boxSearchSuppliers" class="mb-3">
       <div class="row">
         <div class="col-10">
           <input class="form-control" type="text" name="search-suppliers" onkeyup="searchSuppliers(this.value)"
@@ -17,16 +17,16 @@
         </div>
       </div>
 
-      <div id="tableProveedor " class="table-responsive my-3">
+      <div id="tableSuppliers" class="table-responsive d-none my-3">
         <table class="table table-sm table-bordered table-striped table-hover align-middle">
           <thead>
             <tr>
-              <th>Image</th>
-              <th>Producto</th>
+              <th>RUC / DNI</th>
+              <th>Nombre</th>
               <th> </th>
             </tr>
           </thead>
-          <tbody id="resultadosProveedor">
+          <tbody id="resultSuppliers">
           </tbody>
         </table>
       </div>
@@ -133,7 +133,8 @@
           <div class="mb-3">
             <label class="form-label">Ruc / DNI</label>
             <div class="input-group mb-3">
-              <input id="docIdInput" class="form-control" type="number" placeholder="RUC / DNI" name="doc_id">
+              <input id="docIdInput" class="form-control" type="number" placeholder="RUC / DNI" name="document_id"
+                required>
               <button id="searchApiSuppliers" class="input-group-text btn btn-info" type="button"
                 onclick="searchSuppliersApi()">
                 <i class="fa fa-search"></i>
@@ -142,15 +143,15 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Empresa</label>
-            <input class="form-control" type="text" name="company">
+            <input class="form-control" type="text" name="company" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Nombres</label>
-            <input class="form-control" type="text" name="names">
+            <input class="form-control" type="text" name="names" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Apellidos</label>
-            <input class="form-control" type="text" name="lastname">
+            <input class="form-control" type="text" name="lastname" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Telefono</label>
@@ -162,7 +163,7 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Direccion</label>
-            <input class="form-control" type="text" name="addess">
+            <input class="form-control" type="text" name="address">
           </div>
           <div class="mb-3">
             <label class="form-label">Observación</label>

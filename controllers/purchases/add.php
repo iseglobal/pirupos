@@ -6,10 +6,10 @@ require "../../core.php";
 $theme_title   = "Agregar compra";
 $theme_path    = "add_purchases";
 $theme_styles  = [
-  // "assets/css/sweetalert2.css"
+  "assets/css/sweetalert2.css"
 ];
 $theme_scripts = [
-  // "assets/js/sweetalert2.js",
+  "assets/js/sweetalert2.js",
   "assets/js/pages/purchases/add.js"
 ];
 
