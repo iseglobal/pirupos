@@ -38,16 +38,16 @@
   }
 
 
-  .containerx {
+  /* .containerx {
     width: 255px;
     height: 120px;
-  }
+  } */
 
   /* Resize images */
-  /* .containerx img {
+  .containerx img {
         width: 100%;
         height: auto;
-    }*/
+    }
   /**/
 
 
@@ -285,13 +285,19 @@
 
               <div
                 style="flex-direction: column;padding-bottom: 10px;text-align: center;justify-items: center;justify-content: center;align-items: center;">
+                <!-- height="100%" -->
                 <div class="containerx">
-                  <img src="<?= BUSSINES_LOGO ?>" width="100%" height="100%" alt="Logotipo">
+                  <img src="<?= BUSSINES_LOGO ?>" width="100%"  alt="Logotipo">
                 </div>
               </div>
               <div style="text-align:center">
                 <span>
                   <?= BUSSINES_NAME ?>
+                </span>
+              </div>
+              <div style="text-align:center">
+                <span>
+                  <?= BUSSINES_RUC ?>
                 </span>
               </div>
               <section class="title-companyDirtk" style="padding-top: 5px; padding-bottom: 5px; text-align: center;">
@@ -409,15 +415,15 @@
                 </div>
               </div>
 
-              <div style="padding-top:10px;">
+              <!-- <div style="padding-top:10px;"> -->
                 <!-- <strong>Son:</strong>&nbsp;<span><?= convertirNumeroEnPalabras(8.50) ?></span> -->
                 <!-- <strong>Son:</strong>&nbsp;<span>OCHO CON 50/100</span> -->
-              </div>
+              <!-- </div> -->
 
-              <div style="padding-top:10px;">
+              <!-- <div style="padding-top:10px;">
                 <table>
                 </table>
-              </div>
+              </div> -->
 
               <div style="padding-top:7px;">
                 <strong>VENDEDOR:</strong>&nbsp;
@@ -438,20 +444,18 @@
 
               </div>
 
-              <hr style="border: none;border-top: 0.5px dashed black;padding: 0px; margin: 0px;">
+              <!-- <hr style="border: none;border-top: 0.5px dashed black;padding: 0px; margin: 0px;"> -->
 
 
               <div style='justify-content: center;text-align: center;'>
-
                 <hr style="border: none;border-top: 0.5px dashed black;padding: 0px; margin: 0px;">
                 <span class="centrado" style="padding-bottom: 5px">
                   CANJEAR POR FACTURA O BOLETA DE VENTA
                 </span>
-
               </div>
-              <span class="mail" style="padding-bottom: 5px">
+              <!-- <span class="mail" style="padding-bottom: 5px">
                 Consulte su documento electrónico en http://www.github.com/pirulug
-              </span>
+              </span> -->
 
 
               <hr style="border: none;border-top: 0.5px dashed black;padding: 0px; margin: 0px;">
