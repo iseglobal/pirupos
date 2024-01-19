@@ -9,6 +9,11 @@ formNewSuppliers.addEventListener("submit", function (event) {
   saveNewSuppliers();
 });
 
+const searchProductsInput = document.getElementById("search-products");
+searchProductsInput.addEventListener("input", searchProducts);
+
+const tableProducts = document.getElementById("tableProducts");
+
 // modalNewSuppliers.show();
 
 function searchSuppliers(searchTerm) {
@@ -124,3 +129,71 @@ function addsupplierSale() {
 
   boxSearchSuppliers.classList.add("d-none");
 }
+
+function searchProducts() {
+  const searchTerm = searchProductsInput.value;
+  const resultProducts = document.getElementById("resultProducts");
+  if (searchTerm.trim() !== "") {
+    tableProducts.classList.remove("d-none");
+    fetch(baseURL + "/ajax/purchases/search-products.ajax.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: "searchTerm=" + searchTerm,
+    })
+      .then((response) => response.text())
+      .then((html) => {
+        resultProducts.innerHTML = html;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  } else {
+    tableProducts.classList.add("d-none");
+  }
+}
+
+function addProductsPurchases(idProduct) {
+  const tablePurchases = document.getElementById("tablePurchases");
+  fetch(baseURL + "/ajax/purchases/add-product-purchases.ajax.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      id: idProduct,
+    }),
+  })
+    .then((response) => response.text())
+    .then((html) => {
+      tableProducts.classList.add("d-none");
+      // tablePurchases.innerHTML = html;
+      searchProductsInput.value = "";
+      searchProductsInput.autofocus = true;
+
+      getProductPruchases();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+function getProductPruchases() {
+  const tablePurchases = document.getElementById("tablePurchases");
+  fetch(baseURL + "/ajax/purchases/get-product-purchases.ajax.php", {
+    method: "POST",
+  })
+    .then((response) => response.text())
+    .then((html) => {
+      tableProducts.classList.add("d-none");
+      tablePurchases.innerHTML = html;
+      searchProductsInput.value = "";
+      searchProductsInput.autofocus = true;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+getProductPruchases();
