@@ -32,46 +32,14 @@
       </div>
     </div>
 
-    <!-- <div class="mb-3">
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">Empresa</span>
-        <input id="prov-empresa" type="text" class="form-control">
-      </div>
-
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">Nombres</span>
-        <input id="prov-nombre" type="text" class="form-control">
-      </div>
-      
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">Telefono</span>
-        <input id="prov-telefono" type="text" class="form-control">
-      </div>
-
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">Correo</span>
-        <input id="prov-correo" type="text" class="form-control">
-      </div>
-
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">Fecha de nacimiento</span>
-        <input id="prov-fecnac" type="text" class="form-control">
-      </div>
-
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">Direccion</span>
-        <input id="prov-direccion" type="text" class="form-control" disabled>
-      </div>
-
-    </div> -->
-
     <hr>
 
     <div class="mb-3">
-      <input id="buscarProducto" class="form-control" type="search" placeholder="Buscar producto" autofocus>
+      <!-- <input id="search-products" class="form-control" type="search" onkeyup="searchProducts(this.value)" -->
+      <input id="search-products" class="form-control" type="search" placeholder="Buscar producto" autofocus>
     </div>
 
-    <div class="mt-3 d-none table-responsive" id="tableProductos">
+    <div class="my-3 d-none table-responsive" id="tableProducts">
       <table class="table table-sm table-bordered table-striped table-hover align-middle">
         <thead>
           <tr>
@@ -80,7 +48,7 @@
             <th> </th>
           </tr>
         </thead>
-        <tbody id="resultadosProductos">
+        <tbody id="resultProducts">
         </tbody>
       </table>
     </div>
@@ -99,7 +67,7 @@
             </th>
           </tr>
         </thead>
-        <tbody id="tableVentas">
+        <tbody id="tablePurchases">
         </tbody>
         <tfoot>
           <tr>
