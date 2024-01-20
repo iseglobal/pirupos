@@ -6,7 +6,7 @@
     <div id="boxSearchSuppliers" class="mb-3">
       <div class="row">
         <div class="col-10">
-          <input class="form-control" type="text" name="search-suppliers" onkeyup="searchSuppliers(this.value)"
+          <input id="search-suppliers" class="form-control" type="text" name="search-suppliers" onkeyup="searchSuppliers(this.value)"
             placeholder="Buscar por RUC, DNI o Nombre">
         </div>
         <div class="col-2">
@@ -32,7 +32,9 @@
       </div>
     </div>
 
-    <hr>
+    <div id="resultGetSuppliers" class="mb-3">
+    </div>
+    <!-- <hr> -->
 
     <div class="mb-3">
       <!-- <input id="search-products" class="form-control" type="search" onkeyup="searchProducts(this.value)" -->
@@ -59,8 +61,8 @@
           <tr>
             <th>Img</th>
             <th>Producto</th>
-            <th>Precio Unitario</th>
-            <th>Cantidad</th>
+            <th>Cantida</th>
+            <th>Costo por Unidad</th>
             <th>Subtotal</th>
             <th class="text-center">
               <i class="fa fa-trash"></i>
@@ -73,7 +75,9 @@
           <tr>
             <td class="text-center fw-bold fs-5" colspan="4">Total</td>
             <td class="text-center fw-bold fs-5" colspan="2">
-              S/ <span class="totalGlobal">
+              S/
+              <span class="totalGlobal">
+                0.00
               </span>
             </td>
           </tr>

@@ -124,10 +124,75 @@ function saveNewSuppliers() {
     });
 }
 
-function addsupplierSale() {
+// Agregar proveedor a compra
+function addSupplierSale(idSupplier) {
+  fetch(baseURL + "/ajax/purchases/add-supplier-sale.ajax.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      idSupplier: idSupplier,
+    }),
+  })
+    .then((response) => response.text())
+    .then((html) => {
+      // console.log(html);
+      getSupplierSale();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+// Obetener proveedor
+function getSupplierSale() {
+  const resultGetSuppliers = document.getElementById("resultGetSuppliers");
   const boxSearchSuppliers = document.getElementById("boxSearchSuppliers");
 
-  boxSearchSuppliers.classList.add("d-none");
+  fetch(baseURL + "/ajax/purchases/get-supplier-sale.ajax.php", {
+    method: "POST",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // console.log("Get: " + data);
+      if (data.success == true) {
+        resultGetSuppliers.innerHTML = data.html;
+        boxSearchSuppliers.classList.add("d-none");
+      } else {
+        boxSearchSuppliers.classList.remove("d-none");
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+// Eliminar Proveedor
+function deleteSupplierSale() {
+  const resultGetSuppliers = document.getElementById("resultGetSuppliers");
+  const boxSearchSuppliers = document.getElementById("boxSearchSuppliers");
+
+  fetch(baseURL + "/ajax/purchases/delete-supplier-sale.ajax.php", {
+    method: "POST",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // console.log("Delete -> " + data);
+      if (data.success == true) {
+        getSupplierSale();
+        boxSearchSuppliers.classList.remove("d-none");
+        document.getElementById("search-suppliers").value = "";
+        resultGetSuppliers.classList.add("d-none");
+        searchSuppliers("");
+      } else {
+        getSupplierSale();
+        boxSearchSuppliers.classList.add("d-none");
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }
 
 function searchProducts() {
@@ -197,3 +262,9 @@ function getProductPruchases() {
 }
 
 getProductPruchases();
+
+getSupplierSale();
+
+// document.addEventListener("DOMContentLoaded", function () {
+//   getSupplierSale();
+// });

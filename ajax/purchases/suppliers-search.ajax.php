@@ -36,7 +36,7 @@ if (isset($_POST["searchTerm"])) {
         $html .= "<td>$supplier->company</td>";
       }
       $html .= "<td class=\"text-center\" >
-                <button class=\"btn btn-light-success\" type=\"button\" onclick=\"addsupplierSale($supplier->id)\">
+                <button class=\"btn btn-light-success\" type=\"button\" onclick=\"addSupplierSale($supplier->id)\">
                   <i class=\"fa fa-plus\"></i>
                 </button>
               </td>";
