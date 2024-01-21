@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <div id="resultGetSuppliers" class="mb-3">
+    <div id="resultGetSuppliers" class="mb-3 d-none">
     </div>
     <!-- <hr> -->
 
