@@ -1,3 +1,7 @@
+/**
+ * Añadir nuevo proveedor
+ */
+
 const modalNewSuppliers = new bootstrap.Modal(
   document.getElementById("suppliersNewModal")
 );
@@ -8,40 +12,6 @@ formNewSuppliers.addEventListener("submit", function (event) {
   event.preventDefault();
   saveNewSuppliers();
 });
-
-const searchProductsInput = document.getElementById("search-products");
-searchProductsInput.addEventListener("input", searchProducts);
-
-const tableProducts = document.getElementById("tableProducts");
-
-// modalNewSuppliers.show();
-
-function searchSuppliers(searchTerm) {
-  // console.log(search);
-  const tableSuppliers = document.getElementById("tableSuppliers");
-  const resultSuppliers = document.getElementById("resultSuppliers");
-
-  if (searchTerm.trim() !== "") {
-    tableSuppliers.classList.remove("d-none");
-
-    fetch(baseURL + "/ajax/purchases/suppliers-search.ajax.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: "searchTerm=" + searchTerm,
-    })
-      .then((response) => response.text())
-      .then((html) => {
-        resultSuppliers.innerHTML = html;
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  } else {
-    tableSuppliers.classList.add("d-none");
-  }
-}
 
 function newSuppliersModal() {
   modalNewSuppliers.show();
@@ -124,6 +94,40 @@ function saveNewSuppliers() {
     });
 }
 
+/**
+ * Proveedor
+ */
+
+const resultGetSuppliers = document.getElementById("resultGetSuppliers");
+
+// Buscar Proveedores
+function searchSuppliers(searchTerm) {
+  // console.log(search);
+  const tableSuppliers = document.getElementById("tableSuppliers");
+  const resultSuppliers = document.getElementById("resultSuppliers");
+
+  if (searchTerm.trim() !== "") {
+    tableSuppliers.classList.remove("d-none");
+
+    fetch(baseURL + "/ajax/purchases/suppliers-search.ajax.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: "searchTerm=" + searchTerm,
+    })
+      .then((response) => response.text())
+      .then((html) => {
+        resultSuppliers.innerHTML = html;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  } else {
+    tableSuppliers.classList.add("d-none");
+  }
+}
+
 // Agregar proveedor a compra
 function addSupplierSale(idSupplier) {
   fetch(baseURL + "/ajax/purchases/add-supplier-sale.ajax.php", {
@@ -139,6 +143,7 @@ function addSupplierSale(idSupplier) {
     .then((html) => {
       // console.log(html);
       getSupplierSale();
+      resultGetSuppliers.classList.remove("d-none");
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -147,7 +152,6 @@ function addSupplierSale(idSupplier) {
 
 // Obetener proveedor
 function getSupplierSale() {
-  const resultGetSuppliers = document.getElementById("resultGetSuppliers");
   const boxSearchSuppliers = document.getElementById("boxSearchSuppliers");
 
   fetch(baseURL + "/ajax/purchases/get-supplier-sale.ajax.php", {
@@ -159,8 +163,10 @@ function getSupplierSale() {
       if (data.success == true) {
         resultGetSuppliers.innerHTML = data.html;
         boxSearchSuppliers.classList.add("d-none");
+        resultGetSuppliers.classList.remove("d-none");
       } else {
         boxSearchSuppliers.classList.remove("d-none");
+        resultGetSuppliers.classList.add("d-none");
       }
     })
     .catch((error) => {
@@ -170,7 +176,7 @@ function getSupplierSale() {
 
 // Eliminar Proveedor
 function deleteSupplierSale() {
-  const resultGetSuppliers = document.getElementById("resultGetSuppliers");
+  // const resultGetSuppliers = document.getElementById("resultGetSuppliers");
   const boxSearchSuppliers = document.getElementById("boxSearchSuppliers");
 
   fetch(baseURL + "/ajax/purchases/delete-supplier-sale.ajax.php", {
@@ -180,14 +186,13 @@ function deleteSupplierSale() {
     .then((data) => {
       // console.log("Delete -> " + data);
       if (data.success == true) {
-        getSupplierSale();
+        // getSupplierSale();
         boxSearchSuppliers.classList.remove("d-none");
         document.getElementById("search-suppliers").value = "";
-        resultGetSuppliers.classList.add("d-none");
         searchSuppliers("");
+        getSupplierSale();
       } else {
         getSupplierSale();
-        boxSearchSuppliers.classList.add("d-none");
       }
     })
     .catch((error) => {
@@ -195,6 +200,16 @@ function deleteSupplierSale() {
     });
 }
 
+/**
+ * Productos
+ */
+
+const searchProductsInput = document.getElementById("search-products");
+searchProductsInput.addEventListener("input", searchProducts);
+
+const tableProducts = document.getElementById("tableProducts");
+
+// Buscar productos
 function searchProducts() {
   const searchTerm = searchProductsInput.value;
   const resultProducts = document.getElementById("resultProducts");
@@ -219,8 +234,9 @@ function searchProducts() {
   }
 }
 
+// Añadir Productos a compras
 function addProductsPurchases(idProduct) {
-  const tablePurchases = document.getElementById("tablePurchases");
+  // const tablePurchases = document.getElementById("tablePurchases");
   fetch(baseURL + "/ajax/purchases/add-product-purchases.ajax.php", {
     method: "POST",
     headers: {
@@ -244,27 +260,146 @@ function addProductsPurchases(idProduct) {
     });
 }
 
+// Obtener productos de compras
 function getProductPruchases() {
   const tablePurchases = document.getElementById("tablePurchases");
+  const totalGlobalElement = document.querySelectorAll(".totalGlobal");
   fetch(baseURL + "/ajax/purchases/get-product-purchases.ajax.php", {
     method: "POST",
   })
-    .then((response) => response.text())
-    .then((html) => {
+    .then((response) => response.json())
+    .then((data) => {
       tableProducts.classList.add("d-none");
-      tablePurchases.innerHTML = html;
+      tablePurchases.innerHTML = data.html;
       searchProductsInput.value = "";
       searchProductsInput.autofocus = true;
+
+      totalGlobalElement.forEach((element) => {
+        element.textContent = data.total_payment;
+      });
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 }
 
+// Eliminar producto de compras
+function deleteProductPruchases(idProduct) {
+  fetch(baseURL + "/ajax/purchases/delete-product-purchases.ajax.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      idProduct: idProduct,
+    }),
+  })
+    .then((response) => response.text())
+    .then((html) => {
+      getProductPruchases();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+// Cambiar precio
+function changeUnitPrice(productId, unitPrice) {
+  fetch(baseURL + "/ajax/purchases/change-unit-price.ajax.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: "productId=" + productId + "&unitPrice=" + unitPrice,
+  })
+    .then((response) => response.text())
+    .then((html) => {
+      // console.log(html);
+      getProductPruchases();
+      // loadTable();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+// Cambiar cantidad
+function changeQuantity(productId, quantity) {
+  fetch(baseURL + "/ajax/purchases/change-quantity.ajax.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: "productId=" + productId + "&quantity=" + quantity,
+  })
+    .then((response) => response.text())
+    .then((html) => {
+      // console.log(html);
+      getProductPruchases();
+      // loadTable();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+/**
+ * Guardar compra
+ */
+
+const addNewPurchase = document.getElementById("add-new-purchase");
+
+addNewPurchase.addEventListener("click", saveNewPurchase);
+
+// Guardar nueva compra
+function saveNewPurchase() {
+  Swal.fire({
+    title: "¿Agregar compra?",
+    text: "Revisa todo antes de registrar una compra.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si!",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // console.log("click");
+      fetch(baseURL + "/ajax/purchases/new-purchases.ajax.php")
+        .then((response) => response.json())
+        .then((data) => {
+          // getProductPruchases();
+          if (data.success == true) {
+            Swal.fire({
+              title: "Correcto",
+              text: data.message,
+              icon: "success",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                console.log(data);
+                // window.location.href = data.reload;
+              }
+            });
+          } else if (data.success == false) {
+            console.log(data.body);
+            Swal.fire({
+              title: "Error",
+              text: data.message,
+              icon: "error",
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+  });
+}
+
+/**
+ * Llamadas
+ */
+
 getProductPruchases();
 
 getSupplierSale();
-
-// document.addEventListener("DOMContentLoaded", function () {
-//   getSupplierSale();
-// });
