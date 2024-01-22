@@ -7,10 +7,15 @@ if (isset($_SESSION['selected_products_purchases']) && !empty($_SESSION['selecte
 
   $html = "";
 
+  $total_payment = 0;
+
   foreach ($selected_products as $product_data) {
     $product_id = $product_data['product_id'];
-    $cantidad   = $product_data['cantidad'];
-    // $precioUnitario = $product_data['precioUnitario'];
+    $quantity   = $product_data['quantity'];
+    $priceUnit  = number_format($product_data['priceUnit'], 2);
+    $total      = number_format($product_data['total'], 2);
+
+    $total_payment += floatval($total);
 
     $consulta = "SELECT * FROM products WHERE id = :product_id";
     $stmt     = $connect->prepare($consulta);
@@ -23,21 +28,22 @@ if (isset($_SESSION['selected_products_purchases']) && !empty($_SESSION['selecte
                 <img class='' width='50' height='50' src='" . APP_URL . "/uploads/images/$product->image' alt=''>
               </td>";
     $html .= "<td>" . $product->name . "</td>";
-    $html .= "<td><input class=\"form-control\" type=\"text\" value=\"1\"></td>";
-    $html .= "<td><input class=\"form-control\" type=\"text\" value=\"0.00\"></td>";
-    $html .= "<td class='text-center fw-bold'>S/ 0.00</td>";
+    $html .= "<td><input class=\"form-control\" type=\"text\" value=\"$quantity\" onchange='changeQuantity($product->id, this.value)'></td>";
+    $html .= "<td><input class=\"form-control\" type=\"text\" value=\"$priceUnit\" onchange='changeUnitPrice($product->id, this.value)'></td>";
+    $html .= "<td class='text-center fw-bold'>S/. $total</td>";
     $html .= "<td class='text-center'>
-                <button class='btn btn-light-danger' onclick=\"deleteProductpurchases($product->id)\">
+                <button class='btn btn-light-danger' onclick=\"deleteProductPruchases($product->id)\">
                   <i class='fa fa-trash'></i>
                 </button>
               </td>";
     $html .= "</tr>";
   }
 
-  echo $html;
+  echo json_encode(["html" => $html, "total_payment" => number_format($total_payment, 2)]);
 } else {
   $html = "</tr>";
   $html .= "<td colspan='6' class='text-center'>No se han seleccionado productos.</td>";
   $html .= "</tr>";
-  echo $html;
+
+  echo json_encode(["html" => $html, "total_payment" => 0.00]);
 }

@@ -7,8 +7,8 @@ if (isset($_SESSION['selected_suppliers_purchases']) && !empty($_SESSION['select
 
   $html = "";
 
-  foreach ($selected_supplier as $supplier_data) {
-    $idSupplier = $supplier_data['suppliers_id'];
+  // foreach ($selected_supplier as $supplier_data) {
+    $idSupplier = $selected_supplier['suppliers_id'];
 
     $query = "SELECT * FROM suppliers WHERE id = :id";
     $stmt  = $connect->prepare($query);
@@ -41,7 +41,7 @@ if (isset($_SESSION['selected_suppliers_purchases']) && !empty($_SESSION['select
             </button>
           </div>";
     }
-  }
+  // }
 
   echo json_encode(["success"=>true, "html" => $html]);
 } else {

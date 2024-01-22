@@ -15,9 +15,10 @@ $stmt->execute();
 $product = $stmt->fetch(PDO::FETCH_OBJ);
 
 $product_info = array(
-  'product_id'     => $product_id,
-  'cantidad'       => 1,
-  // 'precioUnitario' => $product->price_sale
+  'product_id' => $product_id,
+  'quantity'   => 1,
+  'priceUnit'  => 0.00,
+  'total'      => 0.00
 );
 
 $_SESSION['selected_products_purchases'][] = $product_info;

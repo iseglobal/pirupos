@@ -86,7 +86,7 @@
     </div>
 
     <div class="d-grid">
-      <button id="pagaConEfectivo" class="btn btn-primary mb-1" type="button">Agregar compra</button>
+      <button id="add-new-purchase" class="btn btn-primary mb-1" type="button">Agregar compra</button>
     </div>
 
   </div>

@@ -19,4 +19,4 @@ $suppliers_info = array(
   'suppliers_id' => $supplier->id,
 );
 
-$_SESSION['selected_suppliers_purchases'][] = $suppliers_info;
+$_SESSION['selected_suppliers_purchases'] = $suppliers_info;
