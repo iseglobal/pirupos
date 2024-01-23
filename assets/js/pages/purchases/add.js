@@ -365,10 +365,11 @@ function saveNewPurchase() {
   }).then((result) => {
     if (result.isConfirmed) {
       // console.log("click");
-      fetch(baseURL + "/ajax/purchases/new-purchases.ajax.php")
+      fetch(baseURL + "/ajax/purchases/save-purchases.ajax.php")
         .then((response) => response.json())
         .then((data) => {
           // getProductPruchases();
+          // console.log(data);
           if (data.success == true) {
             Swal.fire({
               title: "Correcto",
@@ -377,7 +378,7 @@ function saveNewPurchase() {
             }).then((result) => {
               if (result.isConfirmed) {
                 console.log(data);
-                // window.location.href = data.reload;
+                window.location.href = data.reload;
               }
             });
           } else if (data.success == false) {
